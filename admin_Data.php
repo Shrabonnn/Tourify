@@ -113,8 +113,8 @@
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Booked Table</span>
+            <a href="admin_Data.php">
+              <i class="admin_Data.php"></i><span>Booked Table</span>
             </a>
           </li>
         </ul>
