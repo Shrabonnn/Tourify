@@ -65,26 +65,26 @@
 
             // Displaying the packages
             if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo '<div class="box">
-                    <div class="image">
-                        <img src="' . $row['imageSrc'] . '" alt="">
-                    </div>
-                    <div class="content">
-                        <h3>' . $row['title'] . '</h3>
-                        <p>' . $row['description'] . '</p>
-                        <a href="book.php' . $row['link'] . '" class="btn2">Book Now</a>
-                        <form action="delete_package.php" method="post">
-                            <input type="hidden" name="package_id" value="' . $row['id'] . '">
-                            
-                        </form>
-                    </div>
-                </div>';
-                }
-            } else {
-                echo "No packages available.";
-            }
+              while ($row = $result->fetch_assoc()) {
+                  echo '<div class="box">
+                  <div class="image">
+                      <img src="' . $row['imageSrc'] . '" alt="">
+                  </div>
+                  <div class="content">
+                      <h3>' . $row['title'] . '</h3>
+<p>' . $row['description'] . '</p>
+<a href="tour_details.php?id=' . $row['id'] . '" class="btn2">Book Now</a>
+<form action="delete_package.php" method="post">
 
+                          <input type="hidden" name="package_id" value="' . $row['id'] . '">
+                          
+                      </form>
+                  </div>
+              </div>';
+              }
+          } else {
+              echo "No packages available.";
+          }
             // Closing the database connection
             $conn->close();
             ?>
