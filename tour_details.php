@@ -60,7 +60,6 @@
                         <div class="content">
                             <h3>' . $row['title'] . '</h3>
                             <p>' . $row['description'] . '</p>
-                            <a href="book.php?id=' . $row['id'] . '" class="btn2">Book Now</a>
                         </div>
                     </div>';
             } else {
@@ -70,10 +69,62 @@
             echo "<p>No package ID provided.</p>";
         }
 
-        // Closing the database connection
+        // Close the database connection
         $conn->close();
         ?>
     </div>
+</section>
+
+<!-- booking form section -->
+<section class="booking">
+    <h1 class="heading-title">Book Your Trip to <?php echo $row['title']; ?>!</h1>
+
+    <form action="book_form.php" method="post" class="book-form">
+        <div class="flex">
+            <div class="inputBox">
+                <span>Name: </span>
+                <input type="text" placeholder="Enter your name" name="name" required>
+            </div>
+
+            <div class="inputBox">
+                <span>Email: </span>
+                <input type="email" placeholder="Enter your email" name="email" required>
+            </div>
+
+            <div class="inputBox">
+                <span>Phone: </span>
+                <input type="number" placeholder="Enter your phone number" name="phone" required>
+            </div>
+
+            <div class="inputBox">
+                <span>Address: </span>
+                <input type="text" placeholder="Enter your address" name="address" required>
+            </div>
+
+            <!-- Automatically filling the package name -->
+            <div class="inputBox">
+                <span>Package: </span>
+                <input type="text" value="<?php echo $row['title']; ?>" name="package" readonly>
+            </div>
+
+            <div class="inputBox">
+                <span>How many: </span>
+                <input type="number" placeholder="How many guests" name="guests" required>
+            </div>
+
+            <div class="inputBox">
+                <span>Arrivals: </span>
+                <input type="date" name="arrivals" required>
+            </div>
+
+            <div class="inputBox">
+                <span>Leaving: </span>
+                <input type="date" name="leaving" required>
+            </div>
+        </div>
+
+        <input type="submit" value="Submit" class="btn2" name="send">
+    </form>
 </section>
 
 <!-- footer section -->
