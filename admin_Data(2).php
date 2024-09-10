@@ -1,8 +1,8 @@
 <?php
 
-   require_once('admin_Data_Fetch(1).php');
+   require_once('admin_Data_fetch(2).php');
 
-   $query = "select * from user_form";
+   $query = "SELECT * FROM packages_form";
    $result= mysqli_query($con,$query);
 
 
@@ -151,11 +151,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Users List</h1>
+      <h1>Booked Packge list</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
-          <li class="breadcrumb-item active">Users Table</li>
+          <li class="breadcrumb-item active">Packages Table</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -173,17 +173,21 @@
         <div class="col">
             <div class="card mt-5">
                 <div class="card-header">
-                    <h2 class="display-6 text-center">Users</h2>
+                    <h2 class="display-6 text-center">Booking</h2>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped text-center">
                         <thead>
                             <tr>
-                            <th scope="col">ID</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
-                                <!--<th scope="col">Password</th>-->
-                                <th scope="col">User Type</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Guests</th>
+                                <th scope="col">Arrivals</th>
+                                <th scope="col">Leaving</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -191,11 +195,15 @@
                             while ($row = mysqli_fetch_assoc($result)) {
                             ?>
                             <tr>
-                            <th scope="row"><?php echo $row['id']; ?></th>
+                                <th scope="row"><?php echo $row['id']; ?></th>
                                 <td><?php echo $row['name']; ?></td>
                                 <td><?php echo $row['email']; ?></td>
-                                <!--<td><?php echo $row['password']; ?></td>-->
-                                <td><?php echo $row['user_type']; ?></td>
+                                <td><?php echo $row['phone']; ?></td>
+                                <td><?php echo $row['address']; ?></td>
+                                <td><?php echo $row['location']; ?></td>
+                                <td><?php echo $row['guests']; ?></td>
+                                <td><?php echo $row['arrivals']; ?></td>
+                                <td><?php echo $row['leaving']; ?></td>
                             </tr>
                             <?php
                             }

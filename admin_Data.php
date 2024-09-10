@@ -114,7 +114,12 @@
           </li>
           <li>
             <a href="admin_Data.php">
-              <i class="admin_Data.php"></i><span>Booked Table</span>
+              <i class="bi bi-circle.php"></i><span>Booked Table</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin_Data(2).php">
+              <i class="bi bi-circle"></i><span>Packages Table</span>
             </a>
           </li>
         </ul>
@@ -150,7 +155,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
-          <li class="breadcrumb-item active">Booked List</li>
+          <li class="breadcrumb-item active">Booked Table</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
