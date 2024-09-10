@@ -165,43 +165,60 @@
 
 <!-- home about section ends -->
 
-<!-- home packages section starts -->
-<section class="home-packages">
-    <h1 class="heading-title">our packages</h1>
+
+<!------home packages section start--------->
+
+<section class="packages">
+    <h1 class="heading-title">top destination</h1>
+    
     <div class="box-container">
-        <?php
-        // Including the database connection file
-        include 'db.php';
+       
+    <?php
+            // Including the database connection file
+            include 'db.php';
 
-        // Fetching data from the 'packages' table
-        $sql = "SELECT * FROM packages";
-        $result = $conn->query($sql);
+            // Fetching data from the 'packages' table
+            $sql = "SELECT * FROM packages";
+            $result = $conn->query($sql);
 
-        // Displaying the packages
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo '<div class="box">
-                        <div class="image">
-                            <img src="' . $row['imageSrc'] . '" alt="" width="450" height="450">
-                        </div> 
-                        <div class="content">
-                            <h3>' . $row['title'] . '</h3>
-                            <p>' . $row['description'] . '</p>
-                            <a href="book.php" class="btn2">book now</a>
-                        </div>
-                    </div>';
+            // Displaying the packages
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<div class="box">
+                    <div class="image">
+                        <img src="' . $row['imageSrc'] . '" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>' . $row['title'] . '</h3>
+<p>' . $row['description'] . '</p>
+<a href="tour_details.php?id=' . $row['id'] . '" class="btn2">Book Now</a>
+<form action="delete_package.php" method="post">
+
+                            <input type="hidden" name="package_id" value="' . $row['id'] . '">
+                            
+                        </form>
+                    </div>
+                </div>';
+                }
+            } else {
+                echo "No packages available.";
             }
-        } else {
-            echo "No packages available.";
-        }
 
-        // Closing the database connection
-        $conn->close();
-        ?>
+            // Closing the database connection
+            $conn->close();
+            ?>
+
+
     </div>
-    <div class="load-more"><a href="package.php" class="btn2">load more</a></div>
+
+    <div class="load-more"><span class="btn2">load more</span></div>
+
+
 </section>
-<!-- home packages section ends -->
+
+
+<!---home packages section end--------->
+
 
 
 
