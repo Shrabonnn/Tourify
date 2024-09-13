@@ -8,7 +8,7 @@ if (isset($_POST['send'])) {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
-    $location = $_POST['title'];
+    $location = $_POST['package'];
     $guests = $_POST['guests'];
     $arrivals = $_POST['arrivals'];
     $leaving = $_POST['leaving'];
