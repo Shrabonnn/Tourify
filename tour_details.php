@@ -45,26 +45,31 @@
 
         // Checking if package ID is passed in the URL
         if (isset($_GET['id'])) {
-            $id = $_GET['id'];
+            $id = intval($_GET['id']); // Ensure the ID is an integer
 
-            // Fetching the package data by ID
-            $sql = "SELECT * FROM packages WHERE id = $id";
-            $result = $conn->query($sql);
+            // Fetching the package data by ID using prepared statements
+            $sql = "SELECT * FROM packages WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 echo '<div class="box">
                         <div class="image">
-                            <img src="' . $row['imageSrc'] . '" alt="">
+                            <img src="' . htmlspecialchars($row['imageSrc']) . '" alt="">
                         </div>
                         <div class="content">
-                            <h3>' . $row['title'] . '</h3>
-                            <p>' . $row['description'] . '</p>
+                            <h3>' . htmlspecialchars($row['title']) . '</h3>
+                            <p>' . htmlspecialchars($row['description']) . '</p>
                         </div>
                     </div>';
             } else {
                 echo "<p>No package found.</p>";
             }
+
+            $stmt->close();
         } else {
             echo "<p>No package ID provided.</p>";
         }
@@ -77,7 +82,7 @@
 
 <!-- booking form section -->
 <section class="booking">
-    <h1 class="heading-title">Book Your Trip to <?php echo $row['title']; ?>!</h1>
+    <h1 class="heading-title">Book Your Trip to <?php echo isset($row['title']) ? htmlspecialchars($row['title']) : ''; ?>!</h1>
 
     <form action="package_confirm.php" method="post" class="book-form">
         <div class="flex">
@@ -104,8 +109,10 @@
             <!-- Automatically filling the package name -->
             <div class="inputBox">
                 <span>Package: </span>
-                <input type="text" value="<?php echo $row['title']; ?>" name="package" readonly>
+                <input type="text" value="<?php echo isset($row['title']) ? htmlspecialchars($row['title']) : ''; ?>" name="package" readonly>
             </div>
+
+            <input type="hidden" name="package_id" value="<?php echo isset($row['id']) ? htmlspecialchars($row['id']) : ''; ?>">
 
             <div class="inputBox">
                 <span>How many: </span>
