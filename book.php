@@ -18,7 +18,64 @@
      
       <!-- custom css file link -->
       <link rel="stylesheet" href="style.css">
+      <!-- Inline CSS for Dropdown Menu -->
+    <style>
+        /* Style the dropdown container */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
+        /* Style the dropdown button */
+        .dropbtn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropbtn i {
+            margin-right: 5px;
+        }
+
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of links on hover */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
     
@@ -32,7 +89,20 @@
         <a href="about.php">about</a>
         <a href="package.php">package</a>
         <a href="book.php">book</a>
-        <a href="logout.php" class="btn">logout</a>
+       <!-- User Icon with Dropdown Menu -->
+      <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fa-solid fa-user"></i> 
+                <?php 
+                    session_start();
+                    echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'User'; 
+                ?>
+            </button>
+            <div class="dropdown-content">
+                <a href="user_dashboard.php">Dashboard</a>
+                <a href="logout.php">Logout</a>
+            </div>
+        </div>
     </nav> 
 
     <div id="menu-btn" class="fas fa-bars"></div>
