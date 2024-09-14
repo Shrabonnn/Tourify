@@ -1,8 +1,13 @@
 <?php
+session_start(); // Ensure the session is started
+
 include('smtp/PHPMailerAutoload.php');
 
 // Database connection for book_db
 $connection = mysqli_connect('localhost', 'root', '', 'book_db');
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 // Additional connection for user_booking_history_db
 $history_db = new mysqli('localhost', 'root', '', 'user_booking_history_db');
@@ -10,26 +15,31 @@ if ($history_db->connect_error) {
     die("Connection failed: " . $history_db->connect_error);
 }
 
+// Ensure user is logged in
+if (!isset($_SESSION['user_id'])) {
+    die("User not logged in.");
+}
+
 if (isset($_POST['send'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $address = $_POST['address'];
-    $location = $_POST['location'];
-    $guests = $_POST['guests'];
-    $arrivals = $_POST['arrivals'];
-    $leaving = $_POST['leaving'];
-    $user_id = $_SESSION['user_id']; // Ensure session is started and user_id is set
+    // Fetch and sanitize POST data
+    $name = mysqli_real_escape_string($connection, $_POST['name']);
+    $email = mysqli_real_escape_string($connection, $_POST['email']);
+    $phone = mysqli_real_escape_string($connection, $_POST['phone']);
+    $address = mysqli_real_escape_string($connection, $_POST['address']);
+    $location = mysqli_real_escape_string($connection, $_POST['location']);
+    $guests = mysqli_real_escape_string($connection, $_POST['guests']);
+    $arrivals = mysqli_real_escape_string($connection, $_POST['arrivals']);
+    $leaving = mysqli_real_escape_string($connection, $_POST['leaving']);
+    $user_id = $_SESSION['user_id']; // Ensure user_id is set in session
 
     // Inserting data into book_form
-    $request = "INSERT INTO book_form(name,email,phone,address,location,guests,arrivals,leaving)
-                VALUES('$name','$email','$phone','$address','$location','$guests','$arrivals','$leaving')";
-    mysqli_query($connection, $request);
+    $request = "INSERT INTO book_form (name, email, phone, address, location, guests, arrivals, leaving)
+                VALUES ('$name', '$email', '$phone', '$address', '$location', '$guests', '$arrivals', '$leaving')";
+    if (!mysqli_query($connection, $request)) {
+        die("Error inserting into book_form: " . mysqli_error($connection));
+    }
 
-    // Inserting data into user_bookings
-    $history_request = "INSERT INTO user_bookings (user_id, name, email, phone, address, location, guests, arrivals, leaving)
-                        VALUES ('$user_id', '$name', '$email', '$phone', '$address', '$location', '$guests', '$arrivals', '$leaving')";
-    mysqli_query($history_db, $history_request);
+  
 
     // Sending email to the user using SMTP
     $to = $email;
@@ -53,7 +63,8 @@ if (isset($_POST['send'])) {
         echo 'Booking successful! However, there was an issue sending the email. Error: ' . $result;
     }
 
-    header('location:book.php');
+    header('Location: book.php');
+    exit; // Ensure no further code runs after redirect
 } else {
     echo 'Something went wrong. Please try again.';
 }
