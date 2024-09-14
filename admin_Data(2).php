@@ -2,10 +2,13 @@
 
    require_once('admin_Data_fetch(2).php');
 
+   // Query to fetch all package bookings
    $query = "SELECT * FROM packages_form";
    $result= mysqli_query($con,$query);
 
-
+   // Query to fetch the number of bookings per package
+   $package_query = "SELECT location, COUNT(*) AS booking_count FROM packages_form GROUP BY location";
+   $package_result = mysqli_query($con, $package_query);
 ?>
 
 <!DOCTYPE html>
@@ -151,96 +154,117 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Booked Packge list</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
-          <li class="breadcrumb-item active">Packages Table</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>Booked Package List</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
+      <li class="breadcrumb-item active">Packages Table</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
 
-    <section class="section dashboard">
+<section class="section dashboard">
+  <div class="row">
+
+    <div class="col-lg-16">
       <div class="row">
 
-        <!-- Left side columns -->
-        <div class="col-lg-16">
-          <div class="row">
-
-          <section>
- <div class="container">
-    <div class="row mt-5">
-        <div class="col">
-            <div class="card mt-5">
+      <!-- Booking Table -->
+      <section>
+        <div class="container">
+          <div class="row mt-5">
+            <div class="col">
+              <div class="card mt-5">
                 <div class="card-header">
-                    <h2 class="display-6 text-center">Booking</h2>
+                  <h2 class="display-6 text-center">Booking</h2>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Guests</th>
-                                <th scope="col">Arrivals</th>
-                                <th scope="col">Leaving</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
-                            <tr>
-                                <th scope="row"><?php echo $row['id']; ?></th>
-                                <td><?php echo $row['name']; ?></td>
-                                <td><?php echo $row['email']; ?></td>
-                                <td><?php echo $row['phone']; ?></td>
-                                <td><?php echo $row['address']; ?></td>
-                                <td><?php echo $row['location']; ?></td>
-                                <td><?php echo $row['guests']; ?></td>
-                                <td><?php echo $row['arrivals']; ?></td>
-                                <td><?php echo $row['leaving']; ?></td>
-                            </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                  <table class="table table-striped text-center">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Guests</th>
+                        <th scope="col">Arrivals</th>
+                        <th scope="col">Leaving</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      while ($row = mysqli_fetch_assoc($result)) {
+                      ?>
+                      <tr>
+                        <th scope="row"><?php echo $row['id']; ?></th>
+                        <td><?php echo $row['name']; ?></td>
+                        <td><?php echo $row['email']; ?></td>
+                        <td><?php echo $row['phone']; ?></td>
+                        <td><?php echo $row['address']; ?></td>
+                        <td><?php echo $row['location']; ?></td>
+                        <td><?php echo $row['guests']; ?></td>
+                        <td><?php echo $row['arrivals']; ?></td>
+                        <td><?php echo $row['leaving']; ?></td>
+                      </tr>
+                      <?php
+                      }
+                      ?>
+                    </tbody>
+                  </table>
                 </div>
+              </div>
             </div>
-        </div>
-    </div>
-</div>
-
- </section>
-
-
-            
-            
-            
-
-
-            
-
           </div>
-        </div><!-- End Left side columns -->
+        </div>
+      </section>
+      <!-- End Booking Table -->
 
-        <!-- Right side columns -->
-        <div class="col-lg-4">
-
-        
-
-        </div><!-- End Right side columns -->
+      <!-- Package Details Card -->
+      <section>
+        <div class="container mt-5">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="text-center">Package Details</h3>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <?php
+                    while ($package = mysqli_fetch_assoc($package_result)) {
+                    ?>
+                    <div class="col-md-4">
+                      <div class="card mb-4">
+                        <div class="card-body">
+                          <h5 class="card-title"><?php echo $package['location']; ?></h5>
+                          <p class="card-text">Total Bookings: <?php echo $package['booking_count']; ?></p>
+                          <!-- Add other package details as needed -->
+                        </div>
+                      </div>
+                    </div>
+                    <?php
+                    }
+                    ?>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Package Details Card -->
 
       </div>
-    </section>
+    </div>
 
-  </main><!-- End #main -->
+  </div>
+</section>
+
+</main><!-- End Main Content -->
+
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
