@@ -130,55 +130,59 @@ $result = $conn->query("SELECT * FROM packages");
           </div>
         </div><!-- End Add Package Form -->
 
-        <!-- Existing Packages List -->
-        <div class="col-lg-12 mt-5">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Existing Packages</h3>
-            </div>
-            <div class="card-body">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Image Source</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  if ($result->num_rows > 0) {
-                      while ($row = $result->fetch_assoc()) {
-                          echo "<tr>";
-                          echo "<th scope='row'>{$row['id']}</th>";
-                          echo "<td>{$row['title']}</td>";
-                          echo "<td>{$row['description']}</td>";
-                          echo "<td>{$row['imageSrc']}</td>";
-                          echo "<td>";
-                          echo "<form action='edit_package.php' method='post' class='d-inline'>";
-                          echo "<input type='hidden' name='package_id' value='{$row['id']}'>";
-                          echo "<button class='btn btn-warning' type='submit'>Edit</button>";
-                          echo "</form>";
-                          echo "<form action='delete_package.php' method='post' class='d-inline'>";
-                          echo "<input type='hidden' name='package_id' value='{$row['id']}'>";
-                          echo "<button class='btn btn-danger ms-2' type='submit'>Delete</button>";
-                          echo "</form>";
-                          echo "</td>";
-                          echo "</tr>";
-                      }
-                  } else {
-                      echo "<tr><td colspan='5'>No packages available.</td></tr>";
-                  }
 
-                  $conn->close();
-                  ?>
-                </tbody>
-              </table>
+        <!-- Existing Packages Cards -->
+<section>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Existing Packages</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <?php
+              if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h5 class="card-title"><?php echo $row['title']; ?></h5>
+                    <p class="card-text"><?php echo $row['description']; ?></p>
+                    <p class="card-text">Image Source: <?php echo $row['imageSrc']; ?></p>
+                    <!-- Actions: Edit and Delete buttons -->
+                    <div class="d-flex">
+                      <form action="edit_package.php" method="post" class="me-2">
+                        <input type="hidden" name="package_id" value="<?php echo $row['id']; ?>">
+                        <button class="btn btn-warning" type="submit">Edit</button>
+                      </form>
+                      <form action="delete_package.php" method="post">
+                        <input type="hidden" name="package_id" value="<?php echo $row['id']; ?>">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <?php
+                  }
+              } else {
+                  echo "<div class='col-12'><p class='text-center'>No packages available.</p></div>";
+              }
+
+              $conn->close();
+              ?>
             </div>
           </div>
-        </div><!-- End Existing Packages List -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Existing Packages Cards -->
+
 
       </div>
     </section>
