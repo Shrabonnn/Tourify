@@ -54,7 +54,9 @@ $result = $conn->query("SELECT * FROM packages");
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
+
     <ul class="sidebar-nav" id="sidebar-nav">
+
       <li class="nav-item">
         <a class="nav-link " href="index.html">
           <i class="bi bi-grid"></i>
@@ -64,7 +66,7 @@ $result = $conn->query("SELECT * FROM packages");
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Packages</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -73,30 +75,68 @@ $result = $conn->query("SELECT * FROM packages");
             </a>
           </li>
           <li>
-            <a href="admin.php">
-              <i class="bi bi-circle"></i><span>Existing Packages</span>
+            <a href="existing_package.php">
+              <i class="bi bi-circle"></i><span>Existing Package</span>
             </a>
           </li>
+          
         </ul>
       </li><!-- End Components Nav -->
+      
+      <li class="nav-item">
+  <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+    <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+  </a>
+  <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+    <li>
+      <a href="admin_Data(1).php">
+        <i class="bi bi-circle"></i><span>Users Table</span>
+      </a>
+    </li>
+    <li>
+      <a href="admin_Data.php">
+        <i class="bi bi-circle"></i><span>Booked Table</span>
+      </a>
+    </li>
+    <li>
+      <a href="admin_Data(2).php">
+        <i class="bi bi-circle"></i><span>Packages Table</span>
+      </a>
+    </li>
+  </ul>
+</li>
+<!-- End Tables Nav -->
+
 
       <li class="nav-heading">Pages</li>
+
       <li class="nav-item">
-        <a class="nav-link collapsed" href="logout.php">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Logout</span>
+        <a class="nav-link collapsed" href="home.php">
+          <i class="bi bi-person"></i>
+          <span>Home</span>
         </a>
-      </li><!-- End Logout Page Nav -->
+      </li><!-- End Profile Page Nav -->
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-login.html">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+
+
     </ul>
-  </aside><!-- End Sidebar -->
+
+  </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Admin Dashboard - Packages</h1>
+      <h1>Add-Packages</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-          <li class="breadcrumb-item active">Packages</li>
+          <li class="breadcrumb-item active">Add-Packages</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -104,84 +144,44 @@ $result = $conn->query("SELECT * FROM packages");
     <section class="section dashboard">
       <div class="row">
 
-        <!-- Add Package Form -->
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-header bg-primary text-white">
-              <h3 class="card-title">Add New Package</h3>
-            </div>
-            <div class="card-body">
-              <form action="process.php" method="post">
-                <div class="mb-3">
-                  <label for="title" class="form-label">Title</label>
-                  <input type="text" class="form-control" name="title" id="title" required>
-                </div>
-                <div class="mb-3">
-                  <label for="description" class="form-label">Description</label>
-                  <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
-                </div>
-                <div class="mb-3">
-                  <label for="imageSrc" class="form-label">Image Source</label>
-                  <input type="text" class="form-control" name="imageSrc" id="imageSrc" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Add Package</button>
-              </form>
-            </div>
-          </div>
-        </div><!-- End Add Package Form -->
-
-
-        <!-- Existing Packages Cards -->
+       <!-- Add New Package Form -->
 <section>
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col">
+        <div class="card mt-5">
           <div class="card-header">
-            <h3 class="text-center">Existing Packages</h3>
+            <h2 class="display-6 text-center">Add New Package</h2>
           </div>
           <div class="card-body">
-            <div class="row">
-              <?php
-              if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
-              ?>
-              <div class="col-md-4">
-                <div class="card mb-4">
-                  <div class="card-body">
-                    <h5 class="card-title"><?php echo $row['title']; ?></h5>
-                    <p class="card-text"><?php echo $row['description']; ?></p>
-                    <p class="card-text">Image Source: <?php echo $row['imageSrc']; ?></p>
-                    <!-- Actions: Edit and Delete buttons -->
-                    <div class="d-flex">
-                      <form action="edit_package.php" method="post" class="me-2">
-                        <input type="hidden" name="package_id" value="<?php echo $row['id']; ?>">
-                        <button class="btn btn-warning" type="submit">Edit</button>
-                      </form>
-                      <form action="delete_package.php" method="post">
-                        <input type="hidden" name="package_id" value="<?php echo $row['id']; ?>">
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+            <form action="process.php" method="post">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" name="title" id="title" required>
               </div>
-              <?php
-                  }
-              } else {
-                  echo "<div class='col-12'><p class='text-center'>No packages available.</p></div>";
-              }
-
-              $conn->close();
-              ?>
-            </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="imageSrc" class="form-label">Image Source</label>
+                <input type="text" class="form-control" name="imageSrc" id="imageSrc" required>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Add Package</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End Existing Packages Cards -->
+<!-- End Add New Package Form -->
+
+
+
+
 
 
       </div>

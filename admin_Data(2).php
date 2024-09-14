@@ -97,7 +97,7 @@
             </a>
           </li>
           <li>
-            <a href="add_package.php">
+            <a href="existing_package.php">
               <i class="bi bi-circle"></i><span>Existing Package</span>
             </a>
           </li>
@@ -133,7 +133,7 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="home.php">
           <i class="bi bi-person"></i>
           <span>Home</span>
         </a>
