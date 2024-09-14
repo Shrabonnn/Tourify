@@ -13,6 +13,63 @@
 
     <!-- custom css file link -->
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Style the dropdown container */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style the dropdown button */
+        .dropbtn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropbtn i {
+            margin-right: 5px;
+        }
+
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of links on hover */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
 
@@ -24,7 +81,20 @@
         <a href="about.php">about</a>
         <a href="package.php">package</a>
         <a href="book.php">book</a>
-        <a href="logout.php" class="btn">logout</a>
+        <!-- User Icon with Dropdown Menu -->
+      <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fa-solid fa-user"></i> 
+                <?php 
+                    session_start();
+                    echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'User'; 
+                ?>
+            </button>
+            <div class="dropdown-content">
+                <a href="user_dashboard.php">Dashboard</a>
+                <a href="logout.php">Logout</a>
+            </div>
+        </div>
     </nav>
     <div id="menu-btn" class="fas fa-bars"></div>
 </section>
@@ -45,26 +115,31 @@
 
         // Checking if package ID is passed in the URL
         if (isset($_GET['id'])) {
-            $id = $_GET['id'];
+            $id = intval($_GET['id']); // Ensure the ID is an integer
 
-            // Fetching the package data by ID
-            $sql = "SELECT * FROM packages WHERE id = $id";
-            $result = $conn->query($sql);
+            // Fetching the package data by ID using prepared statements
+            $sql = "SELECT * FROM packages WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 echo '<div class="box">
                         <div class="image">
-                            <img src="' . $row['imageSrc'] . '" alt="">
+                            <img src="' . htmlspecialchars($row['imageSrc']) . '" alt="">
                         </div>
                         <div class="content">
-                            <h3>' . $row['title'] . '</h3>
-                            <p>' . $row['description'] . '</p>
+                            <h3>' . htmlspecialchars($row['title']) . '</h3>
+                            <p>' . htmlspecialchars($row['description']) . '</p>
                         </div>
                     </div>';
             } else {
                 echo "<p>No package found.</p>";
             }
+
+            $stmt->close();
         } else {
             echo "<p>No package ID provided.</p>";
         }
@@ -77,7 +152,7 @@
 
 <!-- booking form section -->
 <section class="booking">
-    <h1 class="heading-title">Book Your Trip to <?php echo $row['title']; ?>!</h1>
+    <h1 class="heading-title">Book Your Trip to <?php echo isset($row['title']) ? htmlspecialchars($row['title']) : ''; ?>!</h1>
 
     <form action="package_confirm.php" method="post" class="book-form">
         <div class="flex">
@@ -104,8 +179,10 @@
             <!-- Automatically filling the package name -->
             <div class="inputBox">
                 <span>Package: </span>
-                <input type="text" value="<?php echo $row['title']; ?>" name="package" readonly>
+                <input type="text" value="<?php echo isset($row['title']) ? htmlspecialchars($row['title']) : ''; ?>" name="package" readonly>
             </div>
+
+            <input type="hidden" name="package_id" value="<?php echo isset($row['id']) ? htmlspecialchars($row['id']) : ''; ?>">
 
             <div class="inputBox">
                 <span>How many: </span>
