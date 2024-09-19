@@ -69,11 +69,12 @@ if (!isset($_SESSION['user_name'])) {
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="logout.php">
-                <i class="bi bi-box-arrow-left"></i>
-                <span>Logout</span>
-            </a>
-        </li>
+ <a class="nav-link collapsed" href="user_settings.php">
+        <i class="bi bi-gear"></i>
+        <span>Settings</span>
+    </a>
+</li>
+
     </ul>
 </aside>
 

@@ -28,10 +28,13 @@ $booking_result = $stmt_booking->get_result();
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Booked Tours</title>
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-
+<!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
         <a href="user_dashboard.php" class="logo d-flex align-items-center">
@@ -40,13 +43,24 @@ $booking_result = $stmt_booking->get_result();
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+            <!-- Home Icon -->
+            <li class="nav-item">
+                <a href="home.php" class="nav-link d-flex align-items-center">
+                <i class="bi bi-house-door" style="font-size: 20px; margin-right: 20px;"></i> <!-- Home icon -->
+                </a>
+            </li>
+        </ul>
+    </nav>
 </header>
 
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-            <a class="nav-link collapsed" href="user_dashboard.php">
+            <a class="nav-link" href="user_dashboard.php">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -58,17 +72,18 @@ $booking_result = $stmt_booking->get_result();
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="booked_tours.php">
+            <a class="nav-link collapsed" href="booked_tours.php">
                 <i class="bi bi-calendar"></i>
                 <span>Booked Tours</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="logout.php">
-                <i class="bi bi-box-arrow-left"></i>
-                <span>Logout</span>
-            </a>
-        </li>
+ <a class="nav-link collapsed" href="user_settings.php">
+        <i class="bi bi-gear"></i>
+        <span>Settings</span>
+    </a>
+</li>
+
     </ul>
 </aside>
 
