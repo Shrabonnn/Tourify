@@ -7,9 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $title = $conn->real_escape_string($_POST["title"]);
     $description = $conn->real_escape_string($_POST["description"]);
     $imageSrc = $conn->real_escape_string($_POST["imageSrc"]);
-    $link = $conn->real_escape_string($_POST["link"]);
+    
+    $taka = $conn->real_escape_string($_POST["taka"]);
 
-    $sql = "INSERT INTO packages (title, description, imageSrc, link) VALUES ('$title', '$description', '$imageSrc', '$link')";
+    $sql = "INSERT INTO packages (title, description, imageSrc,taka) VALUES ('$title', '$description', '$imageSrc','$taka')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: add_package.php");

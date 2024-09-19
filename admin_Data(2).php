@@ -192,6 +192,8 @@
                         <th scope="col">Guests</th>
                         <th scope="col">Arrivals</th>
                         <th scope="col">Leaving</th>
+                        <th scope="col">Taka</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -208,6 +210,7 @@
                         <td><?php echo $row['guests']; ?></td>
                         <td><?php echo $row['arrivals']; ?></td>
                         <td><?php echo $row['leaving']; ?></td>
+                        <td><?php echo $row['taka']; ?></td>
                       </tr>
                       <?php
                       }

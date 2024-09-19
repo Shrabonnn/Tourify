@@ -167,6 +167,10 @@ $result = $conn->query("SELECT * FROM packages");
                 <label for="imageSrc" class="form-label">Image Source</label>
                 <input type="text" class="form-control" name="imageSrc" id="imageSrc" required>
               </div>
+              <div class="mb-3">
+                <label for="taka" class="form-label">Taka</label>
+                <input type="number" class="form-control" name="taka" id="taka" required>
+              </div>
               <div class="text-center">
                 <button type="submit" class="btn btn-primary">Add Package</button>
               </div>

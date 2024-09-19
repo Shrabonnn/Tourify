@@ -12,10 +12,11 @@ if (isset($_POST['send'])) {
     $guests = $_POST['guests'];
     $arrivals = $_POST['arrivals'];
     $leaving = $_POST['leaving'];
+    $taka = $_POST['taka'];
 
     // Inserting data into the database
-    $request = "INSERT INTO packages_form(name,email,phone,address,location,guests,arrivals,leaving)
-                VALUES('$name','$email','$phone','$address','$location','$guests','$arrivals','$leaving')";
+    $request = "INSERT INTO packages_form(name,email,phone,address,location,guests,arrivals,leaving,taka)
+                VALUES('$name','$email','$phone','$address','$location','$guests','$arrivals','$leaving','$taka')";
     mysqli_query($connection, $request);
 
     // Sending email to the user using SMTP

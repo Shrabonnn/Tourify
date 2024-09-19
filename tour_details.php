@@ -198,6 +198,10 @@
                 <span>Leaving: </span>
                 <input type="date" name="leaving" required>
             </div>
+            <div class="inputBox">
+                <span>Taka: </span>
+                <input type="number" value="<?php echo isset($row['taka']) ? htmlspecialchars($row['taka']) : ''; ?>" name="taka" readonly>
+            </div>
         </div>
 
         <input type="submit" value="Submit" class="btn2" name="send">
