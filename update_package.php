@@ -9,12 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $description = $_POST['description'];
     $imageSrc = $_POST['imageSrc'];
-    $link = $_POST['link'];
+    $taka = $_POST['taka'];
 
     // Updating package details in the database
-    $sql = "UPDATE packages SET title=?, description=?, imageSrc=?, link=? WHERE id=?";
+    $sql = "UPDATE packages SET title=?, description=?, imageSrc=?, taka=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssi", $title, $description, $imageSrc, $link, $packageId);
+    $stmt->bind_param("ssssi", $title, $description, $imageSrc, $taka, $packageId);
 
     if ($stmt->execute()) {
         header("Location: add_package.php");
