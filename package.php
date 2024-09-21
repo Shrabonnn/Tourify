@@ -90,6 +90,14 @@
         <a href="about.php">about</a>
         <a href="package.php">package</a>
         <a href="book.php">book</a>
+        
+        <!-- Search bar integrated into navbar -->
+        <div class="search-bar" style="display: inline-block;">
+            <form action="package.php" method="GET">
+                <input type="text" name="search" placeholder="Search packages..." required style="padding: 5px; border-radius: 4px; border: 1px solid #ccc;">
+                <button type="submit" class="btn2" style="padding: 5px 10px;">Search</button>
+            </form>
+        </div>
         <!-- User Icon with Dropdown Menu -->
       <div class="dropdown">
             <button class="dropbtn">
@@ -131,8 +139,21 @@
             include 'db.php';
 
             // Fetching data from the 'packages' table
-            $sql = "SELECT * FROM packages";
-            $result = $conn->query($sql);
+            //$sql = "SELECT * FROM packages";
+            //$result = $conn->query($sql);
+
+    // Check if a search term is provided
+    $searchTerm = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+
+    // Modify the query to filter based on the search term
+    if ($searchTerm) {
+        $sql = "SELECT * FROM packages WHERE title LIKE '%$searchTerm%' OR description LIKE '%$searchTerm%'";
+    } else {
+        // Default query if no search term is provided
+        $sql = "SELECT * FROM packages";
+    }
+
+    $result = $conn->query($sql);
 
             // Displaying the packages
             if ($result->num_rows > 0) {
