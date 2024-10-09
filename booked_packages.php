@@ -29,6 +29,9 @@ $package_result = $stmt_package->get_result();
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Booked Packages</title>
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -47,13 +50,13 @@ $package_result = $stmt_package->get_result();
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-            <a class="nav-link collapsed" href="user_dashboard.php">
+            <a class="nav-link" href="user_dashboard.php">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="booked_packages.php">
+            <a class="nav-link collapsed" href="booked_packages.php">
                 <i class="bi bi-box"></i>
                 <span>Booked Packages</span>
             </a>
@@ -65,11 +68,12 @@ $package_result = $stmt_package->get_result();
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="logout.php">
-                <i class="bi bi-box-arrow-left"></i>
-                <span>Logout</span>
-            </a>
-        </li>
+ <a class="nav-link collapsed" href="user_settings.php">
+        <i class="bi bi-gear"></i>
+        <span>Settings</span>
+    </a>
+</li>
+
     </ul>
 </aside>
 

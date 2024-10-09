@@ -263,7 +263,13 @@
                     <div class="content">
                         <h3>' . $row['title'] . '</h3>
 <p>' . $row['description'] . '</p>
-<a href="tour_details.php?id=' . $row['id'] . '" class="btn2">Book Now</a>
+ <div style="display: flex; justify-content: center; align-items: center;">
+                    <!-- Displaying Tk: {dynamic_value} -->
+                    <span style="font-size: 24px; margin-right: 20px;">Tk: ' . $row['taka'] . '</span>
+
+                    <!-- Book Now Button -->
+                    <a href="tour_details.php?id=' . $row['id'] . '" class="btn2">Book Now</a>
+                </div>
 <form action="delete_package.php" method="post">
 
                             <input type="hidden" name="package_id" value="' . $row['id'] . '">

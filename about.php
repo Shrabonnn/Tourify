@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title> 
+    <title>about</title> 
 
 
     <!-- swiper css link -->
@@ -18,21 +18,91 @@
      
       <!-- custom css file link -->
       <link rel="stylesheet" href="style.css">
+        <!-- Inline CSS for Dropdown Menu -->
+    <style>
+        /* Style the dropdown container */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
+        /* Style the dropdown button */
+        .dropbtn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropbtn i {
+            margin-right: 5px;
+        }
+
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of links on hover */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
     
 <!-- header section starts -->
 
 <section class="header"> 
-    <a href="home.php" class="logo">tourify.</a> 
+    <a href="home.php" class="logo">Tourify.</a> 
 
     <nav class="navbar">
         <a href="home.php">home</a>
         <a href="about.php">about</a>
         <a href="package.php">package</a>
         <a href="book.php">book</a>
-        <a href="logout.php" class="btn">logout</a>
+        <!-- User Icon with Dropdown Menu -->
+      <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fa-solid fa-user"></i> 
+                <?php 
+                    session_start();
+                    echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'User'; 
+                ?>
+            </button>
+            <div class="dropdown-content">
+                <a href="user_dashboard.php">Dashboard</a>
+                <a href="logout.php">Logout</a>
+            </div>
+        </div>
     </nav> 
 
     <div id="menu-btn" class="fas fa-bars"></div>
@@ -41,185 +111,147 @@
 
 </section>
 
-<!-- header section ends -->
 
-<!-- home section starts -->
+<div class="heading" style="background:url(images/header-bg-1.jpg) no-repeat">
 
-<section class="home">
+    <h1>About us</h1>
+</div> 
 
-<div class="swiper home-slider">
-  <div class="swiper-wrapper">
+<!-- about section starts -->
 
-    <div class="swiper-slide slide" style="background:url(images/travel.jpg) no-repeat">
-        <div class="content">
-          <span>explore, discover, travel</span>
-          <h3>travel around the world</h3> 
-          <a href="package.php" class="btn">discover more</a>
-      </div>
-     </div>
-     
-     <div class="swiper-slide slide" style="background:url(images/discover.jpg) no-repeat">
-       <div class="content">
-          <span>explore, discover, travel</span>
-          <h3>discover the new places</h3> 
-          <a href="package.php" class="btn">discover more</a>
-       </div>
-     </div> 
-
-     <div class="swiper-slide slide" style="background:url(images/worthwhile.jpg) no-repeat;">
-
-     <div class="content">
-          <span>explore, discover, travel</span>
-          <h3>make your tour worthwhile</h3> 
-          <a href="package.php" class="btn">discover more</a>
-      </div>
-     </div>
-
-  </div>
-       
-  <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  
-
-</div>
-
-
-
-
-</section>
-
-
-
-
-
-<!-- home section ends -->
-
-
-
-
-
-
-
-
-<!-- services section starts -->
-<section class="services">
-  <h1 class="heading-title"> our services</h1>
-
-  <div class="box-container">
-
-
-  <div class="box">
-    <img src="images/adventure.svg" alt="" width="100" height="100">
-    <h3>adventure</h3>
-  </div>
-
-  <div class="box">
-    <img src="images/map.svg" alt="" width="100" height="100">
-    <h3>tour guide</h3>
-  </div>
-  
-  <div class="box">
-    <img src="images/trekking.svg" alt="" width="100" height="100">
-    <h3>trekking</h3>
-  </div>
-
-  <div class="box">
-    <img src="images/campfire.svg" alt=""  width="100" height="100">
-    <h3>camp fires</h3>
-  </div>
-
-  <div class="box">
-    <img src="images/offroad.svg" alt="" width="100" height="100" >
-    <h3>off road</h3>
-  </div>
-
-  <div class="box">
-    <img src="images/camping.svg" alt="" width="100" height="100" >
-    <h3>camping</h3>
-  </div>
-
-  </div>
-
-
-</section>
-
-<!-- services section ends -->
-
-
-<!-- home about section starts -->
-
-<section class="home-about">
-    
-<div class="image">
-  <img src="images/about.jpg" alt="">
-
-</div>     
-<div class="content">
-  <h3>about us</h3>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur eum harum tenetur? Sed beatae veniam magnam nihil aliquam! Pariatur perferendis corrupti asperiores, eligendi possimus vitae dolor laborum sit natus molestias?</p>
-  <a href="about.php" class=btn>read more</a>
-
-</div>
-
-</section>
-
-<!-- home about section ends -->
-
-<!-- home packages section starts -->
-<section class="home-packages">
-    <h1 class="heading-title">our packages</h1>
-    <div class="box-container">
-        <?php
-        // Including the database connection file
-        include 'db.php';
-
-        // Fetching data from the 'packages' table
-        $sql = "SELECT * FROM packages";
-        $result = $conn->query($sql);
-
-        // Displaying the packages
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo '<div class="box">
-                        <div class="image">
-                            <img src="' . $row['imageSrc'] . '" alt="" width="450" height="450">
-                        </div> 
-                        <div class="content">
-                            <h3>' . $row['title'] . '</h3>
-                            <p>' . $row['description'] . '</p>
-                            <a href="book.php" class="btn2">book now</a>
-                        </div>
-                    </div>';
-            }
-        } else {
-            echo "No packages available.";
-        }
-
-        // Closing the database connection
-        $conn->close();
-        ?>
+<section class="about">
+    <div class="image">
+        <img src="images/about-main.jpg" alt="">
     </div>
-    <div class="load-more"><a href="package.php" class="btn2">load more</a></div>
+
+    <div class="content">
+        <h3>why choose us?</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed perferendis fugit odit sapiente ipsa assumenda rem nostrum at ut veritatis ab illo est, illum iure minus adipisci praesentium earum temporibus!</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad esse ea vitae neque vel? Dignissimos consequuntur expedita explicabo corporis, aspernatur saepe reiciendis minima a. Architecto ut soluta perferendis error ad!</p>
+        <div class="icons-container">
+            <div class="icons">
+                <i class="fas fa-map"></i>
+                <span>top destinations</span>
+            </div>
+            <div class="icons">
+                <i class="fas fa-hand-holding-usd"></i>
+                <span>affordable price</span>
+            </div>
+            <div class="icons">
+                <i class="fas fa-headset"></i>
+                <span>24/7 service</span>
+            </div>
+        </div>
+    </div>
 </section>
-<!-- home packages section ends -->
 
 
 
-<!-- home offer section starts -->
+<!-- about section ends -->
 
-<section class="home-offer">
-  <div class="content">
-    <h3>upto 50% off</h3>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut excepturi corporis, architecto expedita voluptatibus eveniet eum! Nisi culpa in nulla?</p>
-    <a href="book.php" class="btn2">book now</a>
-  </div>
+<!-- reviews section starts -->
+
+<section class="reviews">
+    <div class="swiper reviews-slider">
+      
+      <div class="swiper-wrapper">
+               
+       <div class="swiper-slider slide">
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, natus! Itaque ex fugit ea eos eligendi. Ipsa molestiae laborum, commodi unde quaerat dolor aliquid magnam iste autem tempora debitis! Accusantium.</p>
+            <h3>john doe</h3>
+            <span>traveler</span>
+            <img src="images/person1.jpg" alt="">
+        </div>
+
+        <div class="swiper-slider slide">
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis corporis reiciendis amet cum veritatis ducimus dignissimos culpa nostrum atque harum ex quas dolore, sint earum consectetur animi pariatur maxime ratione. Earum quasi natus aliquam laborum! Quaerat porro distinctio unde ipsum?</p>
+             <h3>john doe</h3>
+             <span>traveler</span>
+             <img src="images/person2.jpg" alt="">
+        </div>
+
+        <div class="swiper-slider slide">
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                
+            </div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, natus! Itaque ex fugit ea eos eligendi. Ipsa molestiae laborum, commodi unde quaerat dolor aliquid magnam iste autem tempora debitis! Accusantium.</p>
+             <h3>john doe</h3>
+             <span>traveler</span>
+             <img src="images/peson3.jpg" alt="">
+        </div>
+
+        <div class="swiper-slider slide">
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos nisi doloremque harum dolores omnis eaque.</p>
+             <h3>john doe</h3>
+             <span>traveler</span>
+             <img src="images/person4.jpg" alt="">
+        </div>
+
+        <div class="swiper-slider slide">
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                
+            </div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates hic laboriosam dolor aliquam facere odio sit debitis, assumenda quaerat eaque nihil in itaque molestiae saepe nisi quasi reiciendis, omnis quod fugiat id nam vitae deserunt.</p>
+             <h3>john doe</h3>
+             <span>traveler</span>
+             <img src="images/person5.jpg" alt="">
+        </div>
+
+        <div class="swiper-slider slide">
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                
+            </div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis, omnis. Explicabo modi ab ullam temporibus est vero magnam earum voluptatum.</p>
+             <h3>john doe</h3>
+             <span>traveler</span>
+             <img src="images/person6.jpg" alt="">
+        </div>
+
+
+          
+        
+
+      </div>
+
+    </div>
 </section>
 
 
 
 
 
-<!-- home offer section ends -->
+<!-- reviews section ends -->
 
 
 
@@ -238,10 +270,11 @@
 
 
 
-<!-- footer section starts -->
+
+ <!-- footer section starts -->
 
 
-  <section class="footer">
+ <section class="footer">
     <div class="box-container">
 
       <div class="box"> 
@@ -287,17 +320,47 @@
 <!-- footer section ends -->
 
 
-     <!-- swiper js link -->
-     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+ <!-- swiper js link -->
+ <script src="C:\Users\User\Downloads\project-20240103T152231Z-001\project\swiper-11.0.5\package\swiper-bundle.min.js"></script>
 
 
-   <!-- custom js file  link -->
+<!-- custom js file  link -->
 
-   <script src="script.js"></script>
+<script src="script.js"></script>
 
 
 
 </body> 
- 
+
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

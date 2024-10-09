@@ -43,6 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="imageSrc">Image Source:</label>
                 <input type="text" name="imageSrc" value="<?php echo $row['imageSrc']; ?>" required>
 
+                <label for="taka">Taka:</label>
+                <input type="number" name="taka" value="<?php echo $row['taka']; ?>" required>
+
             
 
                 <button type="submit">Update Package</button>
